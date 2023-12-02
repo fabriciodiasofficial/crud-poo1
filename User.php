@@ -1,9 +1,9 @@
 <?php
 class User {
-    public $pdo;
-
-    public function __construct($pdo){
-        $this->pdo = $pdo;
+    private $pdo;
+    
+    public function __construct($database){
+        $this->pdo = $database->getPdo();
     }
 
     public function create($nome, $email, $senha){
@@ -18,7 +18,7 @@ class User {
     }
 
     public function update($id, $nome, $email){
-        $stmt = $this->pdo->prepare("UPDATE usuarios SET nome=? email, email=? WHERE id=?");
+        $stmt = $this->pdo->prepare("UPDATE usuarios SET nome=?, email=? WHERE id=?");
         return $stmt->execute([$nome, $email, $id]);
     }
 
@@ -26,5 +26,15 @@ class User {
         $stmt = $this->pdo->prepare("DELETE FROM usuarios WHERE id=?");
         return $stmt->execute([$id]);
     }
+
+    public function getOne($id){
+        $stmt = $this->pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+
+
 }
 ?>

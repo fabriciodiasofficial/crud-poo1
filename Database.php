@@ -4,8 +4,12 @@ class Database{
     private $dbname = 'mvc';
     private $username = 'root';
     private $password = '';
+
+    private $pdo; 
     
-    public $pdo;
+    public function getPdo(){
+        return $this->pdo;
+    }
 
     public function __construct(){
         try{

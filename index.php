@@ -3,7 +3,7 @@ include('Database.php');
 include('User.php');
 
 $database = new Database();
-$user = new User($database->pdo);
+$user = new User($database);
 
 if(isset($_POST['cadastrar'])){
     $nome = $_POST['nome'];
